@@ -11,9 +11,12 @@ Dostępne grupy:
 
 ## Jak działa
 1. Zaznacz grupy, które chcesz ćwiczyć.
-2. Wybierz tryb odpowiedzi: rōmaji, hiragana lub dowolnie.
-3. Pojawia się liczba z licznikiem (np. `3人`) — wpisz czytanie.
-4. Enter sprawdza odpowiedź, kolejny Enter przechodzi dalej.
+2. Wybierz tryb odpowiedzi (rōmaji / hiragana / dowolnie) i liczbę pytań na fazę.
+3. Quiz przechodzi przez 3 fazy, każda z wybraną liczbą pytań:
+   - **Faza 1** — widzisz czytanie (np. `happun`), wybierasz właściwą liczbę spośród 3 kafli.
+   - **Faza 2** — widzisz kanji (np. `8分`), wybierasz właściwe czytanie spośród 3 kafli.
+   - **Faza 3** — wpisujesz czytanie z pamięci (przycisk „Nie wiem" pokazuje odpowiedź i liczy błąd).
+4. Po każdej fazie pojawia się podsumowanie z wynikiem i listą do powtórki.
 
 Wybór grup zapisuje się lokalnie (localStorage).
 

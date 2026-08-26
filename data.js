@@ -21,7 +21,6 @@ const COUNTER_GROUPS = {
       { num: 7, kanji: "七", reading: "ななにん", romaji: ["nananin"] },
       { num: 8, kanji: "八", reading: "はちにん", romaji: ["hachinin"] },
       { num: 9, kanji: "九", reading: "きゅうにん", romaji: ["kyuunin", "kyunin"] },
-      { num: 9, kanji: "九", reading: "くにん", romaji: ["kunin"] },
       { num: 10, kanji: "十", reading: "じゅうにん", romaji: ["juunin", "junin"] },
       { num: "?", kanji: "何", reading: "なんにん", romaji: ["nannin"] }
     ]

@@ -13,6 +13,8 @@
 
 * { box-sizing: border-box; }
 
+[hidden] { display: none !important; }
+
 html, body {
   margin: 0;
   padding: 0;
@@ -198,6 +200,53 @@ h2 { margin: 12px 0 4px; }
   align-items: center;
   margin-bottom: 6px;
 }
+
+.stage-hint {
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin-bottom: 12px;
+}
+
+/* --- Kafle (faza 1 i 2) --- */
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.tile {
+  font-size: 1.5rem;
+  font-weight: 700;
+  padding: 26px 8px;
+  border: 2px solid var(--border);
+  border-radius: 16px;
+  background: var(--card-bg);
+  cursor: pointer;
+  transition: border-color 0.15s, transform 0.1s, background 0.15s;
+  box-shadow: var(--shadow);
+  word-break: break-word;
+}
+.tile:hover:not(:disabled) {
+  border-color: var(--primary);
+  transform: translateY(-2px);
+}
+.tile:disabled { cursor: default; }
+.tile.correct {
+  border-color: var(--good);
+  background: #f0fdf4;
+  color: var(--good);
+}
+.tile.wrong {
+  border-color: var(--bad);
+  background: #fef2f2;
+  color: var(--bad);
+}
+
+#next-btn { display: block; width: 100%; margin-top: 4px; }
+
+/* mniejsza czcionka gdy w karcie jest czytanie (faza 1) */
+.card.reading-mode .card-question { font-size: 2.6rem; }
 
 .card {
   background: var(--card-bg);

@@ -30,12 +30,12 @@
           </select>
         </label>
         <label class="mode-select">
-          Liczba pytań:
+          Pytań na fazę:
           <select id="session-length">
+            <option value="5">5 pytań</option>
             <option value="10">10 pytań</option>
             <option value="15">15 pytań</option>
             <option value="20">20 pytań</option>
-            <option value="0">Bez limitu</option>
           </select>
         </label>
       </div>
@@ -58,11 +58,17 @@
         <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
       </div>
 
+      <div class="stage-hint" id="stage-hint"></div>
+
       <div id="card" class="card">
         <div class="card-counter" id="card-counter">人</div>
         <div class="card-question" id="card-question">3人</div>
       </div>
 
+      <!-- Faza 1 i 2: wybór kafla -->
+      <div id="tiles" class="tiles" hidden></div>
+
+      <!-- Faza 3: wpisywanie -->
       <form id="answer-form" autocomplete="off">
         <input id="answer-input" type="text" placeholder="Wpisz czytanie…"
                autocapitalize="off" autocorrect="off" spellcheck="false" />
@@ -75,18 +81,17 @@
       </div>
 
       <div id="feedback" class="feedback"></div>
+
+      <button id="next-btn" type="button" class="btn primary" hidden>Dalej →</button>
     </section>
 
     <!-- Ekran podsumowania -->
     <section id="results" class="screen">
-      <h2>Koniec sesji!</h2>
+      <h2 id="result-title">Koniec fazy!</h2>
       <div class="result-score" id="result-score">0 / 0</div>
       <div class="result-accuracy" id="result-accuracy">Celność: 100%</div>
       <div id="result-detail" class="result-detail"></div>
-      <div class="setup-actions">
-        <button id="again-btn" class="btn primary">Jeszcze raz</button>
-        <button id="back-btn" class="btn ghost">← Zmień grupy</button>
-      </div>
+      <div class="setup-actions" id="result-actions"></div>
     </section>
   </main>
 
