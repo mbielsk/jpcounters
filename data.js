@@ -162,5 +162,49 @@ const COUNTER_GROUPS = {
       { num: 31, kanji: "三十一", reading: "さんじゅういちにち", romaji: ["sanjuuichinichi"] },
       { num: "?", kanji: "何", reading: "なんにち", romaji: ["nannichi"] }
     ]
+  },
+
+  things: {
+    id: "things",
+    label: "Przedmioty (ogólny)",
+    counter: "つ",
+    reading: "~tsu",
+    color: "#ffb74d",
+    items: [
+      { num: 1, kanji: "一", reading: "ひとつ", romaji: ["hitotsu"] },
+      { num: 2, kanji: "二", reading: "ふたつ", romaji: ["futatsu"] },
+      { num: 3, kanji: "三", reading: "みっつ", romaji: ["mittsu"] },
+      { num: 4, kanji: "四", reading: "よっつ", romaji: ["yottsu"] },
+      { num: 5, kanji: "五", reading: "いつつ", romaji: ["itsutsu"] },
+      { num: 6, kanji: "六", reading: "むっつ", romaji: ["muttsu"] },
+      { num: 7, kanji: "七", reading: "ななつ", romaji: ["nanatsu"] },
+      { num: 8, kanji: "八", reading: "やっつ", romaji: ["yattsu"] },
+      { num: 9, kanji: "九", reading: "ここのつ", romaji: ["kokonotsu"] },
+      // 10 zapisuje się samym 十 (とお), bez つ
+      { num: 10, kanji: "十", label: "十", reading: "とお", romaji: ["too", "to"] },
+      // forma pytająca to いくつ (幾つ), a nie なんつ
+      { num: "?", kanji: "幾", label: "幾つ", reading: "いくつ", romaji: ["ikutsu"] }
+    ]
+  },
+
+  animals: {
+    id: "animals",
+    label: "Małe zwierzęta",
+    counter: "匹",
+    reading: "hiki / piki / biki",
+    color: "#4db6ac",
+    items: [
+      { num: 1, kanji: "一", reading: "いっぴき", romaji: ["ippiki"] },
+      { num: 2, kanji: "二", reading: "にひき", romaji: ["nihiki"] },
+      { num: 3, kanji: "三", reading: "さんびき", romaji: ["sanbiki"] },
+      { num: 4, kanji: "四", reading: "よんひき", romaji: ["yonhiki"] },
+      { num: 5, kanji: "五", reading: "ごひき", romaji: ["gohiki"] },
+      { num: 6, kanji: "六", reading: "ろっぴき", romaji: ["roppiki"] },
+      { num: 7, kanji: "七", reading: "ななひき", romaji: ["nanahiki"] },
+      { num: 8, kanji: "八", reading: "はっぴき", romaji: ["happiki"] },
+      { num: 9, kanji: "九", reading: "きゅうひき", romaji: ["kyuuhiki"] },
+      { num: 10, kanji: "十", reading: "じゅっぴき", romaji: ["juppiki", "jippiki"] },
+      { num: "?", kanji: "何", reading: "なんびき", romaji: ["nanbiki"] }
+    ]
   }
 };

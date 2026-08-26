@@ -187,8 +187,10 @@
   }
 
   // Liczba prezentowana w kanji (np. 二人, 十一時, 二十日).
+  // Opcjonalne pole item.label nadpisuje etykietę (np. 十 albo 幾つ,
+  // które nie doklejają licznika).
   function numLabel(q) {
-    return q.item.kanji + q.group.counter;
+    return q.item.label || (q.item.kanji + q.group.counter);
   }
 
   // Klucz "pytania" dla danej fazy — służy do usuwania powtórek w kolejce.
@@ -211,6 +213,61 @@
       if (!seen.has(k)) { seen.add(k); out.push(q); }
     });
     return out;
+  }
+
+  // Buduje kolejkę pytań na fazę z proporcjonalnym udziałem grup.
+  // Przy G grupach każda dostaje ~ perStage/G pytań; reszta z dzielenia
+  // rozdzielana jest losowo, a niewykorzystane miejsca (gdy grupa ma za
+  // mało unikalnych pytań) przechodzą do grup z zapasem.
+  function buildStageQueue() {
+    const unique = uniqueByKey(state.pool, questionKey);
+    const byGroup = {};
+    const groupIds = [];
+    unique.forEach(function (q) {
+      const id = q.group.id;
+      if (!byGroup[id]) { byGroup[id] = []; groupIds.push(id); }
+      byGroup[id].push(q);
+    });
+
+    const G = groupIds.length;
+    const N = state.perStage;
+    if (G === 0) return [];
+
+    const shuffledIds = shuffle(groupIds);
+    const base = Math.floor(N / G);
+    let remainder = N % G;
+    const alloc = {};
+    shuffledIds.forEach(function (id) {
+      alloc[id] = base + (remainder > 0 ? 1 : 0);
+      if (remainder > 0) remainder--;
+    });
+
+    // ogranicz do dostępnych pytań i policz niewykorzystane miejsca
+    let deficit = 0;
+    groupIds.forEach(function (id) {
+      const cap = byGroup[id].length;
+      if (alloc[id] > cap) { deficit += alloc[id] - cap; alloc[id] = cap; }
+    });
+
+    // rozdziel deficyt do grup z zapasem (round-robin)
+    let progress = true;
+    while (deficit > 0 && progress) {
+      progress = false;
+      for (let i = 0; i < shuffledIds.length && deficit > 0; i++) {
+        const id = shuffledIds[i];
+        if (alloc[id] < byGroup[id].length) {
+          alloc[id]++;
+          deficit--;
+          progress = true;
+        }
+      }
+    }
+
+    let queue = [];
+    groupIds.forEach(function (id) {
+      queue = queue.concat(shuffle(byGroup[id]).slice(0, alloc[id]));
+    });
+    return shuffle(queue);
   }
 
   // Buduje 3 opcje (poprawną + 2 dystraktory), preferując tę samą grupę.
@@ -244,10 +301,8 @@
     state.mistakes = [];
     state.index = 0;
     state.current = null;
-    // Kolejka bez powtórek: unikalne pytania dla tej fazy, przemieszane,
-    // przycięte do wybranej liczby (mniej, jeśli brak unikalnych pytań).
-    const unique = uniqueByKey(state.pool, questionKey);
-    state.queue = shuffle(unique).slice(0, state.perStage);
+    // Kolejka bez powtórek, z proporcjonalnym udziałem wybranych grup.
+    state.queue = buildStageQueue();
     updateStats();
     el.stageHint.textContent = STAGE_INFO[n];
     el.results.classList.remove("active");
