@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Counters JP · Japońskie liczniki</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <h1 class="logo">Counters<span>JP</span></h1>
+    <p class="tagline">Nauka japońskich liczników (klasyfikatorów)</p>
+  </header>
+
+  <main>
+    <!-- Ekran wyboru -->
+    <section id="setup" class="screen active">
+      <h2>Wybierz grupy do nauki</h2>
+      <p class="hint">Zaznacz liczniki, które chcesz ćwiczyć, a następnie rozpocznij quiz.</p>
+
+      <div id="groups" class="groups"></div>
+
+      <div class="setup-options">
+        <label class="mode-select">
+          Odpowiadaj w:
+          <select id="answer-mode">
+            <option value="romaji">Rōmaji (np. sannin)</option>
+            <option value="hiragana">Hiragana (np. さんにん)</option>
+            <option value="any">Dowolnie (rōmaji lub hiragana)</option>
+          </select>
+        </label>
+        <label class="mode-select">
+          Liczba pytań:
+          <select id="session-length">
+            <option value="10">10 pytań</option>
+            <option value="15">15 pytań</option>
+            <option value="20">20 pytań</option>
+            <option value="0">Bez limitu</option>
+          </select>
+        </label>
+      </div>
+      <div class="setup-actions">
+        <button id="start-btn" class="btn primary" disabled>Rozpocznij quiz</button>
+      </div>
+    </section>
+
+    <!-- Ekran quizu -->
+    <section id="quiz" class="screen">
+      <div class="quiz-stats">
+        <span class="stat">✔ <b id="stat-correct">0</b></span>
+        <span class="stat">✘ <b id="stat-wrong">0</b></span>
+        <span class="stat">🔥 <b id="stat-streak">0</b></span>
+        <span class="stat">📊 <b id="stat-accuracy">100%</b></span>
+      </div>
+
+      <div id="progress-wrap" class="progress-wrap">
+        <div class="progress-text" id="progress-text">Pytanie 1</div>
+        <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+      </div>
+
+      <div id="card" class="card">
+        <div class="card-counter" id="card-counter">人</div>
+        <div class="card-question" id="card-question">3人</div>
+      </div>
+
+      <form id="answer-form" autocomplete="off">
+        <input id="answer-input" type="text" placeholder="Wpisz czytanie…"
+               autocapitalize="off" autocorrect="off" spellcheck="false" />
+        <button type="submit" class="btn primary" id="submit-btn">Sprawdź</button>
+      </form>
+
+      <div class="quiz-secondary">
+        <button id="dontknow-btn" type="button" class="btn ghost">Nie wiem</button>
+        <button id="quit-btn" type="button" class="btn ghost">← Zakończ</button>
+      </div>
+
+      <div id="feedback" class="feedback"></div>
+    </section>
+
+    <!-- Ekran podsumowania -->
+    <section id="results" class="screen">
+      <h2>Koniec sesji!</h2>
+      <div class="result-score" id="result-score">0 / 0</div>
+      <div class="result-accuracy" id="result-accuracy">Celność: 100%</div>
+      <div id="result-detail" class="result-detail"></div>
+      <div class="setup-actions">
+        <button id="again-btn" class="btn primary">Jeszcze raz</button>
+        <button id="back-btn" class="btn ghost">← Zmień grupy</button>
+      </div>
+    </section>
+  </main>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
