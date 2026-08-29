@@ -3,99 +3,195 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Counters JP · Japońskie liczniki</title>
+  <title>Nihongo Drill · Liczniki i Kanji</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header class="topbar">
-    <h1 class="logo">Counters<span>JP</span></h1>
-    <p class="tagline">Nauka japońskich liczników (klasyfikatorów)</p>
+    <h1 class="logo">Nihongo <span>勉強をします</span></h1>
+    <p class="tagline">Nauka japońskich liczników i kanji</p>
   </header>
 
+  <div class="mode-switch">
+    <button id="mode-counters" class="switch-btn active" type="button">Liczniki</button>
+    <button id="mode-kanji" class="switch-btn" type="button">Kanji</button>
+  </div>
+
   <main>
-    <!-- Ekran wyboru -->
-    <section id="setup" class="screen active">
-      <h2>Wybierz grupy do nauki</h2>
-      <p class="hint">Zaznacz liczniki, które chcesz ćwiczyć, a następnie rozpocznij quiz.</p>
+    <!-- ================= TRYB: LICZNIKI ================= -->
+    <div id="counters-app">
+      <section id="setup" class="screen active">
+        <h2>Wybierz grupy do nauki</h2>
+        <p class="hint">Zaznacz liczniki, które chcesz ćwiczyć, a następnie rozpocznij quiz.</p>
 
-      <div id="groups" class="groups"></div>
+        <div id="groups" class="groups"></div>
 
-      <div class="setup-options">
-        <label class="mode-select">
-          Odpowiadaj w:
-          <select id="answer-mode">
-            <option value="romaji">Rōmaji (np. sannin)</option>
-            <option value="hiragana">Hiragana (np. さんにん)</option>
-            <option value="any">Dowolnie (rōmaji lub hiragana)</option>
-          </select>
-        </label>
-        <label class="mode-select">
-          Pytań na fazę:
-          <select id="session-length">
-            <option value="5">5 pytań</option>
-            <option value="10">10 pytań</option>
-            <option value="15">15 pytań</option>
-            <option value="20">20 pytań</option>
-          </select>
-        </label>
+        <div class="setup-options">
+          <label class="mode-select">
+            Odpowiadaj w:
+            <select id="answer-mode">
+              <option value="romaji">Rōmaji (np. sannin)</option>
+              <option value="hiragana">Hiragana (np. さんにん)</option>
+              <option value="any">Dowolnie (rōmaji lub hiragana)</option>
+            </select>
+          </label>
+          <label class="mode-select">
+            Pytań na fazę:
+            <select id="session-length">
+              <option value="5">5 pytań</option>
+              <option value="10">10 pytań</option>
+              <option value="15">15 pytań</option>
+              <option value="20">20 pytań</option>
+            </select>
+          </label>
+        </div>
+        <div class="setup-actions">
+          <button id="start-btn" class="btn primary" disabled>Rozpocznij quiz</button>
+        </div>
+      </section>
+
+      <section id="quiz" class="screen">
+        <div class="quiz-stats">
+          <span class="stat">✔ <b id="stat-correct">0</b></span>
+          <span class="stat">✘ <b id="stat-wrong">0</b></span>
+          <span class="stat">🔥 <b id="stat-streak">0</b></span>
+          <span class="stat">📊 <b id="stat-accuracy">100%</b></span>
+        </div>
+
+        <div id="progress-wrap" class="progress-wrap">
+          <div class="progress-text" id="progress-text">Pytanie 1</div>
+          <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+        </div>
+
+        <div class="stage-hint" id="stage-hint"></div>
+
+        <div id="card" class="card">
+          <div class="card-counter" id="card-counter">人</div>
+          <div class="card-question" id="card-question">3人</div>
+        </div>
+
+        <div id="tiles" class="tiles" hidden></div>
+
+        <form id="answer-form" autocomplete="off">
+          <input id="answer-input" type="text" placeholder="Wpisz czytanie…"
+                 autocapitalize="off" autocorrect="off" spellcheck="false" />
+          <button type="submit" class="btn primary" id="submit-btn">Sprawdź</button>
+        </form>
+
+        <div class="quiz-secondary">
+          <button id="dontknow-btn" type="button" class="btn ghost">Nie wiem</button>
+          <button id="quit-btn" type="button" class="btn ghost">← Zakończ</button>
+        </div>
+
+        <div id="feedback" class="feedback"></div>
+
+        <button id="next-btn" type="button" class="btn primary" hidden>Dalej →</button>
+      </section>
+
+      <section id="results" class="screen">
+        <h2 id="result-title">Koniec fazy!</h2>
+        <div class="result-score" id="result-score">0 / 0</div>
+        <div class="result-accuracy" id="result-accuracy">Celność: 100%</div>
+        <div id="result-detail" class="result-detail"></div>
+        <div class="setup-actions" id="result-actions"></div>
+      </section>
+    </div>
+
+    <!-- ================= TRYB: KANJI ================= -->
+    <div id="kanji-app" hidden>
+      <section id="k-setup" class="screen active">
+        <h2>Nauka kanji</h2>
+        <p class="hint">Powtórz losowy zestaw kanji w trzech fazach: znaczenie, czytanie, złożenia.</p>
+
+        <div class="setup-options">
+          <label class="mode-select">
+            Liczba kanji:
+            <select id="k-count">
+              <option value="10">10 kanji</option>
+              <option value="20">20 kanji</option>
+              <option value="30">30 kanji</option>
+            </select>
+          </label>
+          <label class="check-option">
+            <input type="checkbox" id="k-skip-stage1" />
+            Pomiń fazę 1 (znaczenie)
+          </label>
+          <label class="check-option">
+            <input type="checkbox" id="k-skip-stage2" />
+            Pomiń fazę 2 (czytanie)
+          </label>
+        </div>
+        <div class="setup-actions">
+          <button id="k-start-btn" class="btn primary">Rozwiąż quiz</button>
+        </div>
+        <p class="hint" id="k-available"></p>
+        <div id="k-preview" class="kanji-preview"></div>
+      </section>
+
+      <section id="k-quiz" class="screen">
+        <div class="quiz-stats">
+          <span class="stat">✔ <b id="k-stat-correct">0</b></span>
+          <span class="stat">✘ <b id="k-stat-wrong">0</b></span>
+          <span class="stat">🔥 <b id="k-stat-streak">0</b></span>
+          <span class="stat">📊 <b id="k-stat-accuracy">100%</b></span>
+        </div>
+
+        <div id="k-progress-wrap" class="progress-wrap">
+          <div class="progress-text" id="k-progress-text">Pytanie 1</div>
+          <div class="progress-bar"><div class="progress-fill" id="k-progress-fill"></div></div>
+        </div>
+
+        <div class="stage-hint" id="k-stage-hint"></div>
+
+        <div id="k-card" class="card">
+          <div class="card-question kanji-big" id="k-card-question">山</div>
+        </div>
+
+        <!-- Faza 2: podpowiedzi czytań -->
+        <div id="k-reading-hint" class="reading-hint" hidden></div>
+
+        <!-- Faza 1: wybór znaczenia -->
+        <div id="k-tiles" class="tiles" hidden></div>
+
+        <!-- Faza 2 i 3: wpisywanie -->
+        <form id="k-answer-form" autocomplete="off">
+          <input id="k-answer-input" type="text" placeholder="Wpisz odpowiedź…"
+                 autocapitalize="off" autocorrect="off" spellcheck="false" />
+          <button type="submit" class="btn primary" id="k-submit-btn">Sprawdź</button>
+        </form>
+
+        <div class="quiz-secondary">
+          <button id="k-dontknow-btn" type="button" class="btn ghost">Nie wiem</button>
+          <button id="k-quit-btn" type="button" class="btn ghost">← Zakończ</button>
+        </div>
+
+        <div id="k-feedback" class="feedback"></div>
+
+        <button id="k-next-btn" type="button" class="btn primary" hidden>Dalej →</button>
+      </section>
+
+      <!-- Popup ze szczegółami kanji -->
+      <div id="k-modal" class="modal" hidden>
+        <div class="modal-backdrop" id="k-modal-backdrop"></div>
+        <div class="modal-card" role="dialog" aria-modal="true" aria-label="Szczegóły kanji">
+          <button class="modal-close" id="k-modal-close" type="button" aria-label="Zamknij">×</button>
+          <div id="k-modal-body"></div>
+        </div>
       </div>
-      <div class="setup-actions">
-        <button id="start-btn" class="btn primary" disabled>Rozpocznij quiz</button>
-      </div>
-    </section>
 
-    <!-- Ekran quizu -->
-    <section id="quiz" class="screen">
-      <div class="quiz-stats">
-        <span class="stat">✔ <b id="stat-correct">0</b></span>
-        <span class="stat">✘ <b id="stat-wrong">0</b></span>
-        <span class="stat">🔥 <b id="stat-streak">0</b></span>
-        <span class="stat">📊 <b id="stat-accuracy">100%</b></span>
-      </div>
-
-      <div id="progress-wrap" class="progress-wrap">
-        <div class="progress-text" id="progress-text">Pytanie 1</div>
-        <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
-      </div>
-
-      <div class="stage-hint" id="stage-hint"></div>
-
-      <div id="card" class="card">
-        <div class="card-counter" id="card-counter">人</div>
-        <div class="card-question" id="card-question">3人</div>
-      </div>
-
-      <!-- Faza 1 i 2: wybór kafla -->
-      <div id="tiles" class="tiles" hidden></div>
-
-      <!-- Faza 3: wpisywanie -->
-      <form id="answer-form" autocomplete="off">
-        <input id="answer-input" type="text" placeholder="Wpisz czytanie…"
-               autocapitalize="off" autocorrect="off" spellcheck="false" />
-        <button type="submit" class="btn primary" id="submit-btn">Sprawdź</button>
-      </form>
-
-      <div class="quiz-secondary">
-        <button id="dontknow-btn" type="button" class="btn ghost">Nie wiem</button>
-        <button id="quit-btn" type="button" class="btn ghost">← Zakończ</button>
-      </div>
-
-      <div id="feedback" class="feedback"></div>
-
-      <button id="next-btn" type="button" class="btn primary" hidden>Dalej →</button>
-    </section>
-
-    <!-- Ekran podsumowania -->
-    <section id="results" class="screen">
-      <h2 id="result-title">Koniec fazy!</h2>
-      <div class="result-score" id="result-score">0 / 0</div>
-      <div class="result-accuracy" id="result-accuracy">Celność: 100%</div>
-      <div id="result-detail" class="result-detail"></div>
-      <div class="setup-actions" id="result-actions"></div>
-    </section>
+      <section id="k-results" class="screen">
+        <h2 id="k-result-title">Koniec fazy!</h2>
+        <div class="result-score" id="k-result-score">0 / 0</div>
+        <div class="result-accuracy" id="k-result-accuracy">Celność: 100%</div>
+        <div id="k-result-detail" class="result-detail"></div>
+        <div class="setup-actions" id="k-result-actions"></div>
+      </section>
+    </div>
   </main>
 
   <script src="data.js"></script>
   <script src="app.js"></script>
+  <script src="data_kanji.js"></script>
+  <script src="app_kanji.js"></script>
 </body>
 </html>
