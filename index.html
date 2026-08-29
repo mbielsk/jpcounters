@@ -15,6 +15,7 @@
   <div class="mode-switch">
     <button id="mode-counters" class="switch-btn active" type="button">Liczniki</button>
     <button id="mode-kanji" class="switch-btn" type="button">Kanji</button>
+    <button id="mode-verbs" class="switch-btn" type="button">Czasowniki</button>
   </div>
 
   <main>
@@ -187,11 +188,89 @@
         <div class="setup-actions" id="k-result-actions"></div>
       </section>
     </div>
+
+    <!-- ================= TRYB: CZASOWNIKI ================= -->
+    <div id="verbs-app" hidden>
+      <section id="v-setup" class="screen active">
+        <h2>Nauka czasowników</h2>
+        <p class="hint">Powtórz losowy zestaw czasowników w trzech fazach: znaczenie, forma ~masu, formy przeczenia i czasu przeszłego.</p>
+
+        <div class="setup-options">
+          <label class="mode-select">
+            Liczba czasowników:
+            <select id="v-count">
+              <option value="5">5</option>
+              <option value="10">10</option>
+              <option value="99">Wszystkie</option>
+            </select>
+          </label>
+          <label class="check-option">
+            <input type="checkbox" id="v-skip-stage1" />
+            Pomiń fazę 1 (znaczenie)
+          </label>
+        </div>
+        <div class="setup-actions">
+          <button id="v-start-btn" class="btn primary">Rozwiąż quiz</button>
+        </div>
+        <p class="hint" id="v-available"></p>
+        <div id="v-preview" class="verb-preview"></div>
+      </section>
+
+      <section id="v-quiz" class="screen">
+        <div class="quiz-stats">
+          <span class="stat">✔ <b id="v-stat-correct">0</b></span>
+          <span class="stat">✘ <b id="v-stat-wrong">0</b></span>
+          <span class="stat">🔥 <b id="v-stat-streak">0</b></span>
+          <span class="stat">📊 <b id="v-stat-accuracy">100%</b></span>
+        </div>
+
+        <div id="v-progress-wrap" class="progress-wrap">
+          <div class="progress-text" id="v-progress-text">Pytanie 1</div>
+          <div class="progress-bar"><div class="progress-fill" id="v-progress-fill"></div></div>
+        </div>
+
+        <div class="stage-hint" id="v-stage-hint"></div>
+
+        <div id="v-card" class="card">
+          <div class="card-question verb-big" id="v-card-question">たべる</div>
+          <div class="card-sub" id="v-card-sub">taberu</div>
+        </div>
+
+        <div id="v-prompt" class="verb-prompt" hidden></div>
+
+        <div id="v-tiles" class="tiles" hidden></div>
+
+        <form id="v-answer-form" autocomplete="off">
+          <input id="v-answer-input" type="text" placeholder="Wpisz odpowiedź (rōmaji)…"
+                 autocapitalize="off" autocorrect="off" spellcheck="false" />
+          <button type="submit" class="btn primary" id="v-submit-btn">Sprawdź</button>
+        </form>
+
+        <div class="quiz-secondary">
+          <button id="v-dontknow-btn" type="button" class="btn ghost">Nie wiem</button>
+          <button id="v-quit-btn" type="button" class="btn ghost">← Zakończ</button>
+        </div>
+
+        <div id="v-feedback" class="feedback"></div>
+
+        <button id="v-next-btn" type="button" class="btn primary" hidden>Dalej →</button>
+      </section>
+
+      <section id="v-results" class="screen">
+        <h2 id="v-result-title">Koniec fazy!</h2>
+        <div class="result-score" id="v-result-score">0 / 0</div>
+        <div class="result-accuracy" id="v-result-accuracy">Celność: 100%</div>
+        <div id="v-result-detail" class="result-detail"></div>
+        <div class="setup-actions" id="v-result-actions"></div>
+      </section>
+    </div>
   </main>
 
   <script src="data.js"></script>
   <script src="app.js"></script>
   <script src="data_kanji.js"></script>
   <script src="app_kanji.js"></script>
+  <script src="data_verbs.js"></script>
+  <script src="app_verbs.js"></script>
 </body>
 </html>

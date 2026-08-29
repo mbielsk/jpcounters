@@ -280,7 +280,8 @@ h2 { margin: 12px 0 4px; }
 }
 
 #next-btn,
-#k-next-btn { display: block; width: 100%; margin-top: 4px; }
+#k-next-btn,
+#v-next-btn { display: block; width: 100%; margin-top: 4px; }
 
 /* mniejsza czcionka gdy w karcie jest czytanie (faza 1) */
 .card.reading-mode .card-question { font-size: 2.6rem; }
@@ -404,8 +405,40 @@ h2 { margin: 12px 0 4px; }
 .ex-word { font-weight: 700; }
 .ex-reading { color: var(--muted); }
 
+/* --- Tryb czasowników --- */
+.verb-preview {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 12px;
+}
+.verb-chip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  min-width: 90px;
+  padding: 10px 12px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+}
+.verb-chip-hira { font-size: 1.4rem; font-weight: 700; }
+.verb-chip-meaning { color: var(--muted); font-size: 0.85rem; }
+
+.verb-big { font-size: 3.4rem; }
+.card-sub { color: var(--muted); font-size: 1.1rem; margin-top: 6px; }
+.verb-prompt {
+  text-align: center;
+  font-size: 1.05rem;
+  margin-bottom: 14px;
+}
+.verb-prompt b { color: var(--primary); }
+
 @media (max-width: 480px) {
   .kanji-big { font-size: 4.5rem; }
+  .verb-big { font-size: 2.8rem; }
 }
 
 .card {
@@ -430,13 +463,15 @@ h2 { margin: 12px 0 4px; }
 }
 
 #answer-form,
-#k-answer-form {
+#k-answer-form,
+#v-answer-form {
   display: flex;
   gap: 10px;
   margin-bottom: 14px;
 }
 #answer-input,
-#k-answer-input {
+#k-answer-input,
+#v-answer-input {
   flex: 1;
   min-width: 0;
   font-size: 1.25rem;
@@ -447,11 +482,14 @@ h2 { margin: 12px 0 4px; }
   transition: border-color 0.15s;
 }
 #answer-input:focus,
-#k-answer-input:focus { border-color: var(--primary); }
+#k-answer-input:focus,
+#v-answer-input:focus { border-color: var(--primary); }
 #answer-input.good,
-#k-answer-input.good { border-color: var(--good); background: #f0fdf4; }
+#k-answer-input.good,
+#v-answer-input.good { border-color: var(--good); background: #f0fdf4; }
 #answer-input.bad,
-#k-answer-input.bad { border-color: var(--bad); background: #fef2f2; }
+#k-answer-input.bad,
+#v-answer-input.bad { border-color: var(--bad); background: #fef2f2; }
 
 .feedback {
   min-height: 52px;

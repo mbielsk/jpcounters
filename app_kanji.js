@@ -144,19 +144,7 @@
     return e.replace(/([aeiou])\1/g, "$1") === r.replace(/([aeiou])\1/g, "$1");
   }
 
-  // --- Przełączanie trybów ---
-  function showCounters() {
-    el.modeCounters.classList.add("active");
-    el.modeKanji.classList.remove("active");
-    el.countersApp.hidden = false;
-    el.kanjiApp.hidden = true;
-  }
-  function showKanji() {
-    el.modeKanji.classList.add("active");
-    el.modeCounters.classList.remove("active");
-    el.kanjiApp.hidden = false;
-    el.countersApp.hidden = true;
-  }
+  // (Przełączanie trybów obsługiwane centralnie w app_verbs.js.)
 
   // --- Sterowanie sesją ---
   function startQuiz() {
@@ -485,8 +473,6 @@
   }
 
   // --- Zdarzenia ---
-  el.modeCounters.addEventListener("click", showCounters);
-  el.modeKanji.addEventListener("click", showKanji);
   el.startBtn.addEventListener("click", startQuiz);
   el.quitBtn.addEventListener("click", quitQuiz);
   el.dontKnowBtn.addEventListener("click", giveUp);
