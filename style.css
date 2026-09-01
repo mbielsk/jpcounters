@@ -281,7 +281,8 @@ h2 { margin: 12px 0 4px; }
 
 #next-btn,
 #k-next-btn,
-#v-next-btn { display: block; width: 100%; margin-top: 4px; }
+#v-next-btn,
+#w-next-btn { display: block; width: 100%; margin-top: 4px; }
 
 /* mniejsza czcionka gdy w karcie jest czytanie (faza 1) */
 .card.reading-mode .card-question { font-size: 2.6rem; }
@@ -464,14 +465,16 @@ h2 { margin: 12px 0 4px; }
 
 #answer-form,
 #k-answer-form,
-#v-answer-form {
+#v-answer-form,
+#w-answer-form {
   display: flex;
   gap: 10px;
   margin-bottom: 14px;
 }
 #answer-input,
 #k-answer-input,
-#v-answer-input {
+#v-answer-input,
+#w-answer-input {
   flex: 1;
   min-width: 0;
   font-size: 1.25rem;
@@ -483,13 +486,16 @@ h2 { margin: 12px 0 4px; }
 }
 #answer-input:focus,
 #k-answer-input:focus,
-#v-answer-input:focus { border-color: var(--primary); }
+#v-answer-input:focus,
+#w-answer-input:focus { border-color: var(--primary); }
 #answer-input.good,
 #k-answer-input.good,
-#v-answer-input.good { border-color: var(--good); background: #f0fdf4; }
+#v-answer-input.good,
+#w-answer-input.good { border-color: var(--good); background: #f0fdf4; }
 #answer-input.bad,
 #k-answer-input.bad,
-#v-answer-input.bad { border-color: var(--bad); background: #fef2f2; }
+#v-answer-input.bad,
+#w-answer-input.bad { border-color: var(--bad); background: #fef2f2; }
 
 .feedback {
   min-height: 52px;

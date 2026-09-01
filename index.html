@@ -16,6 +16,7 @@
     <button id="mode-counters" class="switch-btn active" type="button">Liczniki</button>
     <button id="mode-kanji" class="switch-btn" type="button">Kanji</button>
     <button id="mode-verbs" class="switch-btn" type="button">Czasowniki</button>
+    <button id="mode-vocab" class="switch-btn" type="button">Słownictwo</button>
   </div>
 
   <main>
@@ -264,6 +265,77 @@
         <div class="setup-actions" id="v-result-actions"></div>
       </section>
     </div>
+
+    <!-- ================= TRYB: VOCABULARY ================= -->
+    <div id="vocab-app" hidden>
+      <section id="w-setup" class="screen active">
+        <h2>Słownictwo</h2>
+        <p class="hint">Wybierz kategorie i powtórz słówka w dwóch fazach: rozpoznanie znaczenia i wpisanie w rōmaji.</p>
+
+        <div id="w-groups" class="groups"></div>
+
+        <div class="setup-options">
+          <label class="mode-select">
+            Pytań na fazę:
+            <select id="w-count">
+              <option value="5">5 pytań</option>
+              <option value="10">10 pytań</option>
+              <option value="15">15 pytań</option>
+              <option value="20">20 pytań</option>
+            </select>
+          </label>
+        </div>
+        <div class="setup-actions">
+          <button id="w-start-btn" class="btn primary" disabled>Rozwiąż quiz</button>
+        </div>
+      </section>
+
+      <section id="w-quiz" class="screen">
+        <div class="quiz-stats">
+          <span class="stat">✔ <b id="w-stat-correct">0</b></span>
+          <span class="stat">✘ <b id="w-stat-wrong">0</b></span>
+          <span class="stat">🔥 <b id="w-stat-streak">0</b></span>
+          <span class="stat">📊 <b id="w-stat-accuracy">100%</b></span>
+        </div>
+
+        <div id="w-progress-wrap" class="progress-wrap">
+          <div class="progress-text" id="w-progress-text">Pytanie 1</div>
+          <div class="progress-bar"><div class="progress-fill" id="w-progress-fill"></div></div>
+        </div>
+
+        <div class="stage-hint" id="w-stage-hint"></div>
+
+        <div id="w-card" class="card">
+          <div class="card-question verb-big" id="w-card-question">はる</div>
+          <div class="card-sub" id="w-card-sub">haru</div>
+        </div>
+
+        <div id="w-tiles" class="tiles" hidden></div>
+
+        <form id="w-answer-form" autocomplete="off">
+          <input id="w-answer-input" type="text" placeholder="Wpisz w rōmaji…"
+                 autocapitalize="off" autocorrect="off" spellcheck="false" />
+          <button type="submit" class="btn primary" id="w-submit-btn">Sprawdź</button>
+        </form>
+
+        <div class="quiz-secondary">
+          <button id="w-dontknow-btn" type="button" class="btn ghost">Nie wiem</button>
+          <button id="w-quit-btn" type="button" class="btn ghost">← Zakończ</button>
+        </div>
+
+        <div id="w-feedback" class="feedback"></div>
+
+        <button id="w-next-btn" type="button" class="btn primary" hidden>Dalej →</button>
+      </section>
+
+      <section id="w-results" class="screen">
+        <h2 id="w-result-title">Koniec fazy!</h2>
+        <div class="result-score" id="w-result-score">0 / 0</div>
+        <div class="result-accuracy" id="w-result-accuracy">Celność: 100%</div>
+        <div id="w-result-detail" class="result-detail"></div>
+        <div class="setup-actions" id="w-result-actions"></div>
+      </section>
+    </div>
   </main>
 
   <script src="data.js"></script>
@@ -272,5 +344,7 @@
   <script src="app_kanji.js"></script>
   <script src="data_verbs.js"></script>
   <script src="app_verbs.js"></script>
+  <script src="data_vocab.js"></script>
+  <script src="app_vocab.js"></script>
 </body>
 </html>

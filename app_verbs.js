@@ -5,26 +5,8 @@
 (function () {
   "use strict";
 
-  // --- Ujednolicony przełącznik trybów (obsługuje wszystkie trzy zakładki) ---
-  const apps = {
-    counters: document.getElementById("counters-app"),
-    kanji: document.getElementById("kanji-app"),
-    verbs: document.getElementById("verbs-app")
-  };
-  const modeBtns = {
-    counters: document.getElementById("mode-counters"),
-    kanji: document.getElementById("mode-kanji"),
-    verbs: document.getElementById("mode-verbs")
-  };
-  function switchMode(mode) {
-    Object.keys(apps).forEach(function (m) {
-      apps[m].hidden = (m !== mode);
-      modeBtns[m].classList.toggle("active", m === mode);
-    });
-  }
-  modeBtns.counters.addEventListener("click", function () { switchMode("counters"); });
-  modeBtns.kanji.addEventListener("click", function () { switchMode("kanji"); });
-  modeBtns.verbs.addEventListener("click", function () { switchMode("verbs"); });
+  // (Przełączanie trybów obsługiwane centralnie w app_vocab.js.)
+  const verbsApp = document.getElementById("verbs-app");
 
   // --- Konfiguracja faz ---
   const STAGE_INFO = {
@@ -399,7 +381,7 @@
   });
   document.addEventListener("keydown", function (e) {
     if (e.key === "Enter" && state.answered && !el.nextBtn.hidden &&
-        !apps.verbs.hidden) {
+        !verbsApp.hidden) {
       e.preventDefault();
       nextQuestion();
     }
